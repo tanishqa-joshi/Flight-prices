@@ -1,34 +1,66 @@
-# Flight-prices
 #include <stdio.h>
-void bubbleSort(float price[], int n) {
+
+struct Flights {
+    char name[50];
+    char to[50];
+    char from[50];
+    int num;
+    float price;
+};
+void bubbleSort(struct Flights flight[], int n) {
     int i, j;
-    float temp;
+    struct Flights temp;
+
     for (i = 0; i < n - 1; i++) {
         for (j = 0; j < n - 1 - i; j++) {
-            if (price[j] > price[j + 1]) {
-                temp = price[j];
-                price[j] = price[j + 1];
-            price[j + 1] = temp;
+            if (flight[j].price > flight[j + 1].price) {
+            
+                temp = flight[j];
+                flight[j] = flight[j + 1];
+                flight[j + 1] = temp;
             }
         }
     }
 }
+
 int main() {
-    int n, i;
-    printf("************Flight Prices************\n");
-    printf("Enter the number of tickets: ");
+    int i, n;
+
+    printf("~~~~~~~~~~~~ Flight details ~~~~~~~~~~~~\n");
+    printf("Enter number of flights: ");
     scanf("%d", &n);
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    float price[n];
+
+    struct Flights flight[n];
+
     for (i = 0; i < n; i++) {
-        printf("Enter price of ticket %d: ", i + 1);
-        scanf("%f", &price[i]);
-        printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+        printf("\nEnter details of flight %d\n", i + 1);
+
+        printf("Name: ");
+        scanf("%s", flight[i].name);
+
+        printf("To: ");
+        scanf("%s", flight[i].to);
+
+        printf("From: ");
+        scanf("%s", flight[i].from);
+
+        printf("Number: ");
+        scanf("%d", &flight[i].num);
+
+        printf("Price: ");
+        scanf("%f", &flight[i].price);
     }
-    bubbleSort(price, n);
-    printf("\nPrices in increasing order are:\n");
+    bubbleSort(flight, n);
+
+    printf("\n====== Flights Sorted by Price (Low to High) ======\n");
     for (i = 0; i < n; i++) {
-        printf(" %d: %.2f\n", i + 1, price[i]);
+        printf("\n----- Flight %d -----\n", i + 1);
+        printf("Name: %s\n", flight[i].name);
+        printf("To: %s\n", flight[i].to);
+        printf("From: %s\n", flight[i].from);
+        printf("Number: %d\n", flight[i].num);
+        printf("Price: %.2f\n", flight[i].price);
     }
+
     return 0;
 }
